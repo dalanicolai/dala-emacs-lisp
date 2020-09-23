@@ -1,5 +1,7 @@
 ;; (add-hook 'pdf-view-mode-hook (lambda () (when (equal pdf-view-continuous 'hack)
 ;;                                       (setq mode-line-format nil))))
+;; (add-hook 'pdf-view-mode-hook (lambda () (when (equal pdf-view-continuous 'hack)
+;;                                            (setq windmove-create-window t))))
 
 (defun pdf-view-toggle-continuous ()
   (interactive)

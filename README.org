@@ -4,7 +4,8 @@
 This is a function that uses avy to highlight with pdf-tools by keyboard. After
 calling the function you type the initial pattern to set where to highlight
 from, and subsequently type the number of it's label. Then repeat this to set
-the the end of the highlighted region.
+the end of the highlighted region. It works fine, but I concluded that using
+the mouse is maybe sometimes not that bad :wink:.
 
 (For some reason the `pdf-view-current-page` function in the
 `pdf-links-read-char-action` function is not always recognized correctly. This
@@ -15,7 +16,7 @@ can be fixed by adding to the `pdf-view-current-page` call the argument
 [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][See here]]
 
 ** Addtional projects
-*** djvu2
+*** djvu2 https://github.com/dalanicolai/djvu2.el
     Show djvu annotations within Emacs (extending [[https://github.com/emacsmirror/djvu/blob/master/djvu.el][djvu.el]])
     There is also a [[https://github.com/dalanicolai/djvu-layer][Spacemacs djvu layer]] which additionally [[https://lists.gnu.org/archive/html/bug-gnu-emacs/2020-08/msg01014.html][implements smooth scrolling]] in djvu.
 *** toc-mode [[https://github.com/dalanicolai/toc-mode]]

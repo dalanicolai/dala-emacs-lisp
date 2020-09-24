@@ -26,19 +26,21 @@ at the bottom edge of the page moves to the next page."
                    "window-total-height %s, frame-height %s\nnext line: vscroll value, second next line: output value (image-next-line)"
                    (window-total-height)
                    (frame-height))
-                   (get-buffer-create "*pdf-scroll-log*"))
-           (when (= (print (window-vscroll nil pdf-view-have-image-mode-pixel-vscroll) (get-buffer-create "*pdf-scroll-log*"))
+                  (get-buffer-create "*pdf-scroll-log*"))
+           (when (= (print
+                     (window-vscroll nil pdf-view-have-image-mode-pixel-vscroll)
+                     (get-buffer-create "*pdf-scroll-log*"))
                     (print (image-next-line arg) (get-buffer-create "*pdf-scroll-log*")))
 	           (cond
-	            ((if (equal (frame-parameter nil 'fullscreen) 'fullboth)
-                   (< (window-total-height) (- (frame-height) 1))
-                 (< (window-total-height) (frame-height)))
+	            ((not (window-full-height-p))
                (condition-case nil
                    (window-resize (get-buffer-window) -1 nil t)
                  (error (delete-window)))
                (image-next-line 1))
               (t
-               (display-buffer-in-direction (current-buffer) (cons '(direction . below) '((window-height . 1))))
+               (display-buffer-in-direction
+                (current-buffer)
+                (cons '(direction . below) '((window-height . 1))))
                (windmove-down)
                (pdf-view-next-page)
                (when (/= cur-page (pdf-view-current-page))
@@ -78,7 +80,9 @@ at the top edge of the page moves to the previous page."
                     (print
                      (image-previous-line arg)
                      (get-buffer-create "*pdf-scroll-log*")))
-             (display-buffer-in-direction (current-buffer) (cons '(direction . above) '((window-height . 1))))
+             (display-buffer-in-direction
+              (current-buffer)
+              (cons '(direction . above) '((window-height . 1))))
              (windmove-up)
              (pdf-view-previous-page)
              (when (/= cur-page (pdf-view-current-page))

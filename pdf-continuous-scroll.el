@@ -1,7 +1,5 @@
 ;; (add-hook 'pdf-view-mode-hook (lambda () (when (equal pdf-view-continuous 'hack)
 ;;                                       (setq mode-line-format nil))))
-;; (add-hook 'pdf-view-mode-hook (lambda () (when (equal pdf-view-continuous 'hack)
-;;                                            (setq windmove-create-window t))))
 
 (defun pdf-view-toggle-continuous ()
   (interactive)
@@ -42,6 +40,7 @@ at the bottom edge of the page moves to the next page."
                 (current-buffer)
                 (cons '(direction . below) '((window-height . 1))))
                (windmove-down)
+               (pdf-view-goto-page cur-page)
                (pdf-view-next-page)
                (when (/= cur-page (pdf-view-current-page))
                  (image-bob)
@@ -84,6 +83,7 @@ at the top edge of the page moves to the previous page."
               (current-buffer)
               (cons '(direction . above) '((window-height . 1))))
              (windmove-up)
+             (pdf-view-goto-page cur-page)
              (pdf-view-previous-page)
              (when (/= cur-page (pdf-view-current-page))
                (image-eob)

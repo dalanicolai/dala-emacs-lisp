@@ -14,7 +14,7 @@ can be fixed by adding to the `pdf-view-current-page` call the argument
 
 *** pdf-continuous-scroll.el
 See [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][here]]
-and
+and the enhanced minor mode version 
 [[https://github.com/dalanicolai/pdf-continuous-scroll-mode.el][here]]
 
 ** Addtional projects

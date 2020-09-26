@@ -13,7 +13,7 @@ can be fixed by adding to the `pdf-view-current-page` call the argument
 `(get-buffer-window))
 
 *** pdf-continuous-scroll.el
-[[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][See here]]
+See [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][here]]
 and
 [[https://github.com/dalanicolai/pdf-continuous-scroll-mode.el][here]]
 

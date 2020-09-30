@@ -15,6 +15,9 @@ can be fixed by adding to the `pdf-view-current-page` call the argument
 *** pdf-continuous-scroll.el
 [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][See here]]
 
+*** evil-switch.el
+    An simplified equivalent of the vim-switch plugin
+
 ** Addtional projects
 *** djvu2 https://github.com/dalanicolai/djvu2.el
     Show djvu annotations within Emacs (extending [[https://github.com/emacsmirror/djvu/blob/master/djvu.el][djvu.el]]).

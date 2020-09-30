@@ -1,3 +1,6 @@
+(eval-when-compile
+  (require 'pdf-view))
+
 (defcustom pdf-links-convert-pointsize-scale 0.02
   "The scale factor for the -pointsize convert command.
 

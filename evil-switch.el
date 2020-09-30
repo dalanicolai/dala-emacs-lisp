@@ -22,5 +22,3 @@
   (evil-switch pairs-alist))
 
 (evil-define-key '(normal visual) 'evil-normal-state-map (kbd "g s") 'toggle-pairwise-replace)
-
-true

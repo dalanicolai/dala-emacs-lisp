@@ -8,6 +8,11 @@ from, and subsequently type the number of it's label. Then repeat this to set
 the end of the highlighted region. It works fine, but I concluded that using
 the mouse is maybe sometimes not that bad :wink:.
 
+In the demo below the first highlight is created using the mouse, while the
+second is created using pdf-avy-highlight (both slowly, so you can follow what
+happens)
+[[avy-highlight-demo.gif]]
+
 *** pdf-continuous-scroll.el
 See [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][here]]
 and the enhanced minor mode version 

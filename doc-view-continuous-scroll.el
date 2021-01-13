@@ -54,8 +54,7 @@ the step size for scrolling use the ARG in
 	            ((not (window-full-height-p))
                (condition-case nil
                    (window-resize (get-buffer-window) -1 nil t)
-                 (error (kill-buffer (alist-get 'djvu-text-buffer (window-parameters)))
-                        (delete-window)
+                 (error (delete-window)
                         (set-window-parameter nil 'doc-view-cs-window-status 'single)))
                (image-next-line 1))
               (t

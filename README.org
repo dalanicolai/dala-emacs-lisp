@@ -18,12 +18,17 @@ See [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][her
 and the enhanced minor mode version 
 [[https://github.com/dalanicolai/pdf-continuous-scroll-mode.el][here]]
 
-** doc-view-continuous-scroll.el
+** doc-view-continuous-scroll-djvu.el
    *DOES NOT WORK WELL*. pdf-continuous-scroll.el ported to doc-view-mode.
    However, it worked well until (experimental) functions were added to make it
    sync with djvu.el buffers. So although it could easily made to work with all
    doc-view buffers by removing the djvu specific functions, it currently only
    works with djvu documents.
+
+*** doc-view-continuous-scroll.el
+    Very quick attempt to revert =doc-view-continuous-scroll-djvu.el= to a
+    working state for doc-view.
+
 
 *** evil-switch.el
     A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]].

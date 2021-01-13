@@ -123,7 +123,6 @@ To increase the step size for scrolling use the ARG in
               ((= (window-total-height) (- (frame-height) window-min-height))
                (set-window-parameter nil 'doc-view-cs-window-status 'single)
                (windmove-down)
-               (kill-buffer (alist-get 'djvu-text-buffer (window-parameters)))
                (delete-window))))
     (message "doc-view-continuous-scroll-mode not activated")))
 

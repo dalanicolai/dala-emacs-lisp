@@ -1,4 +1,4 @@
-(defcustom pdf-links-convert-pointsize-scale 0.02
+(defcustom pdf-links-convert-pointsize-scale 0.01
   "The scale factor for the -pointsize convert command.
 
 This determines the relative size of the font, when interactively
@@ -90,8 +90,9 @@ See `pdf-links-action-perform' for the interface."
   (let* ((query (avy-timed-input))
          (coords (list (or (pdf-links-read-char-action query "Please specify (SPC scrolls): ")
                            (error "No char selected")))))
-    (print coords)
-  (print (car (alist-get 'edges (car coords))))))
+    ;; (print coords)
+  ;; (print (car (alist-get 'edges (car coords))))))
+    (car (alist-get 'edges (car coords)))))
 
 (defun pdf-keyboard-highlight ()
   (interactive)

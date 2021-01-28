@@ -1,4 +1,7 @@
-(defcustom pdf-links-convert-pointsize-scale 0.01
+(eval-when-compile
+  (require 'pdf-view))
+
+(defcustom pdf-links-convert-pointsize-scale 0.02
   "The scale factor for the -pointsize convert command.
 
 This determines the relative size of the font, when interactively

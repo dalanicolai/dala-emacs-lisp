@@ -1,0 +1,43 @@
+* dala-emacs-lisp
+** Handy or fun functions for Emacs
+
+*** pdf-avy-highlight.el
+This is a function that uses avy to highlight by keyboard with pdf-tools. After
+calling the function you type the initial pattern to set where to highlight
+from, and subsequently type the number of it's label. Then repeat this to set
+the end of the highlighted region. It works fine, but I concluded that using
+the mouse is maybe sometimes not that bad :wink:.
+
+In the demo below the first highlight is created using the mouse, while the
+second is created using pdf-avy-highlight (both slowly, so you can follow what
+happens)
+[[avy-highlight-demo.gif]]
+
+*** pdf-continuous-scroll.el
+See [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][here]]
+and the enhanced minor mode version 
+[[https://github.com/dalanicolai/pdf-continuous-scroll-mode.el][here]]
+
+** doc-view-continuous-scroll-djvu.el
+   *DOES NOT WORK WELL*. pdf-continuous-scroll.el ported to doc-view-mode.
+   However, it worked well until (experimental) functions were added to make it
+   sync with djvu.el buffers. So although it could easily made to work with all
+   doc-view buffers by removing the djvu specific functions, it currently only
+   works with djvu documents.
+
+*** doc-view-continuous-scroll.el
+    Very quick attempt to revert =doc-view-continuous-scroll-djvu.el= to a
+    working state for doc-view.
+
+
+*** evil-switch.el
+    A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]].
+
+** Addtional projects
+*** djvu2 https://github.com/dalanicolai/djvu2.el
+    Show djvu annotations within Emacs (extending [[https://github.com/emacsmirror/djvu/blob/master/djvu.el][djvu.el]]). There is also a
+    [[https://github.com/dalanicolai/djvu-layer][Spacemacs djvu layer]] which additionally [[https://lists.gnu.org/archive/html/bug-gnu-emacs/2020-08/msg01014.html][implements smooth scrolling]] and
+    convenient navigation using imenu.
+*** toc-mode [[https://github.com/dalanicolai/toc-mode]]
+    A package to create and attach Table of contents to pdf and djvu documents.
+    There is also a [[https://github.com/dalanicolai/toc-layer][toc-layer for Spacemacs]]

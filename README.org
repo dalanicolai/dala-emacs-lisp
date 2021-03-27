@@ -1,6 +1,7 @@
 * dala-emacs-lisp
 ** Handy or fun functions for Emacs
 
+   
 *** pdf-avy-highlight.el
 This is a function that uses avy to highlight by keyboard with pdf-tools. After
 calling the function you type the initial pattern to set where to highlight
@@ -13,6 +14,10 @@ second is created using pdf-avy-highlight (both slowly, so you can follow what
 happens)
 [[avy-highlight-demo.gif]]
 
+*** google-keyboard-translate-pdf-textregion.el
+    Translate text-regions in pdf by keyboard (similar to ~pdf-avy-highlight.el~
+    decribed above). Requires https://github.com/atykhonov/google-translate
+    
 *** pdf-continuous-scroll.el
 See [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][here]]
 and the enhanced minor mode version 

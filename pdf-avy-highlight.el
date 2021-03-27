@@ -93,8 +93,9 @@ See `pdf-links-action-perform' for the interface."
   (let* ((query (avy-timed-input))
          (coords (list (or (pdf-links-read-char-action query "Please specify (SPC scrolls): ")
                            (error "No char selected")))))
-    (print coords)
-  (print (car (alist-get 'edges (car coords))))))
+    ;; (print coords)
+  ;; (print (car (alist-get 'edges (car coords))))))
+    (car (alist-get 'edges (car coords)))))
 
 (defun pdf-keyboard-highlight ()
   (interactive)

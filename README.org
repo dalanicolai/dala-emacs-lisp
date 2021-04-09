@@ -34,7 +34,10 @@ and the enhanced minor mode version
     Very quick attempt to revert =doc-view-continuous-scroll-djvu.el= to a
     working state for doc-view.
 
-
+*** json-to-yasnippet.el
+    Very basic vscode json snippet file to yasnippet translator. For usage see
+    initial comment within file.
+    
 *** evil-switch.el
     A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]].
 

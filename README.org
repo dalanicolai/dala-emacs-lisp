@@ -42,6 +42,9 @@ and the enhanced minor mode version
     A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]].
 
 ** Addtional projects
+*** djvu3 [[https://github.com/dalanicolai/djvu3]]
+    A newer version of =djvu2= using Emacs its native =svg= rendering
+    capabilities.
 *** djvu2 https://github.com/dalanicolai/djvu2.el
     Show djvu annotations within Emacs (extending [[https://github.com/emacsmirror/djvu/blob/master/djvu.el][djvu.el]]). There is also a
     [[https://github.com/dalanicolai/djvu-layer][Spacemacs djvu layer]] which additionally [[https://lists.gnu.org/archive/html/bug-gnu-emacs/2020-08/msg01014.html][implements smooth scrolling]] and

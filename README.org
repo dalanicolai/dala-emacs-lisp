@@ -14,6 +14,28 @@ second is created using pdf-avy-highlight (both slowly, so you can follow what
 happens)
 [[avy-highlight-demo.gif]]
 
+*** ob-template.el
+    Ah somewhat updated version of [[https://code.orgmode.org/bzg/worg/raw/master/org-contrib/babel/ob-template.el][ob-template.el]] as found in section *Develop
+    support for new languages* at the [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][org babel website]].
+
+    Some few small tips:
+    - start with instrumenting [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Using-Edebug.html][see edebug]] the =org-babel-execute:template=
+      function, and subsequently evaluate some test-code block. In this way you
+      can easily figure out how org-babel processes header arguments. Then in
+      the end, the result printed by a code block simply consists of the output
+      of that function.
+    - The trick is to process the vars/result-params and the =full=body=
+      variable (~let~ form within =org-babel-execute:template= function) and
+      send the appropriate lines to some inferior process (or as an argument to
+      some shell command). The inferior process can be created in the function
+      =org-babel-template-initiate-session=. The result returned by the inferior
+      process (or by the shell command), should be returned by
+      =org-babel-execute:template= (of course you might further process it
+      before you return it).
+    - Don't forget to read the comments in the ob-template file, e.g. for
+      sending/receiving output to/from an inferior process, the functions in
+      =org-babel-comint= might be useful, etc...
+
 *** google-keyboard-translate-pdf-textregion.el
     Translate text-regions in pdf by keyboard (similar to ~pdf-avy-highlight.el~
     decribed above). Requires https://github.com/atykhonov/google-translate

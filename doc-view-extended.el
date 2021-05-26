@@ -553,7 +553,7 @@ Typically \"page-%s.png\".")
                                      (format "djvused '%s' -e 'select %s; print-ant'" file page)))
                                    ")")))
          (djvu-links (seq-filter
-                      (lambda (annot) (not (string= "" (cadr annot))))
+                      (lambda (annot) (not (string= "" (nth 1 annot))))
                       djvu-annots))
          (i 0)
          hotspots)
@@ -1073,6 +1073,22 @@ The test is performed using `doc-view-ghostscript-program'."
 
 (defalias 'doc-view-ps->png-converter-ghostscript
   'doc-view-pdf->png-converter-ghostscript)
+
+(defun doc-view-djvu->ppm-converter-ddjvu (djvu img-file page callback)
+  "Convert PAGE of a DJVU file to bitmap(s) asynchronously.
+Call CALLBACK with no arguments when done.
+If PAGE is nil, convert the whole document."
+  (doc-view-start-process
+   "djvu->ppm" "ddjvu"
+   `("-format=ppm"
+     ;; ddjvu only accepts the range 1-999.
+     ,(format "-scale=%d" (round doc-view-resolution))
+     ;; -eachpage was only added after djvulibre-3.5.25.3!
+     ,@(unless page '("-eachpage"))
+     ,@(if page `(,(format "-page=%d" page)))
+     ,djvu
+     ,img-file)
+   callback))
 
 (defun doc-view-djvu->tiff-converter-ddjvu (djvu tiff page callback)
   "Convert PAGE of a DJVU file to bitmap(s) asynchronously.
@@ -1879,7 +1895,7 @@ If BACKWARD is non-nil, jump to the previous match."
   "Find the right single-page converter for the current document type."
   (pcase-let ((`(,conv-function ,type ,extension)
                (pcase doc-view-doc-type
-                 ('djvu (list #'doc-view-djvu->tiff-converter-ddjvu 'tiff "tif"))
+                 ('djvu (list #'doc-view-djvu->ppm-converter-ddjvu 'ppm "ppm"))
                  (_     (list doc-view-pdf->png-converter-function  'png  "png")))))
     (setq-local doc-view-single-page-converter-function conv-function)
     (setq-local doc-view--image-type type)

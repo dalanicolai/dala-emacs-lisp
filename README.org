@@ -74,3 +74,5 @@ and the enhanced minor mode version
 *** toc-mode [[https://github.com/dalanicolai/toc-mode]]
     A package to create and attach Table of contents to pdf and djvu documents.
     There is also a [[https://github.com/dalanicolai/toc-layer][toc-layer for Spacemacs]]
+*** sketch-mode [[https://github.com/dalanicolai/sketch-mode]]
+    A package for creating quick svg sketches.

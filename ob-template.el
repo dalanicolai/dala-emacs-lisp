@@ -26,12 +26,31 @@
 
 ;;; Commentary:
 
-;; This file is not intended to ever be loaded by org-babel, rather it
-;; is a template for use in adding new language support to Org-babel.
-;; Good first steps are to copy this file to a file named by the
-;; language you are adding, and then use `query-replace' to replace
-;; all strings of "template" in this file with the name of your new
-;; language.
+;; This file is not intended to ever be loaded by org-babel, rather it is a
+;; template for use in adding new language support to Org-babel. Good first
+;; steps are to copy this file to a file named by the language you are adding,
+;; and then use `query-replace' to replace all strings of "template" in this
+;; file with the name of your new language.
+
+;; After the `query-replace' step, it is recommended to load the file and
+;; register it to org-babel either via the customize menu, or by wvaluating the
+;; line: (add-to-list 'org-babel-load-languages '(template . t)) where
+;; `template' should have been replaced by the name of the language you are
+;; implementing.
+
+;; After that continue by creating a simple code block that looks like e.g.
+;;
+;; #+begin_src template
+
+;; test
+
+;; #+end_src
+
+;; Finally you can use `edebug' to instrumentalize
+;; `org-babel-expand-body:template' and continue to evaluate the code block. You
+;; try to add header keywords and change the body of the code block and
+;; reevaluate the code block to observe how things get handled.
+
 ;;
 ;; If you have questions as to any of the portions of the file defined
 ;; below please look to existing language support for guidance.
@@ -42,6 +61,7 @@
 ;; will make it possible to include your language support in the core
 ;; of Org-mode, otherwise unassigned language support files can still
 ;; be included in the contrib/ directory of the Org-mode repository.
+
 
 ;;; Requirements:
 
@@ -103,8 +123,9 @@
 This function is called by `org-babel-execute-src-block'"
   (message "executing Template source code block")
   (let* ((processed-params (org-babel-process-params params))
-         ;; set the session if the session variable is non-nil
-         (session (org-babel-template-initiate-session (cdr (assq :session processed-params))))
+         ;; set the session if the value of the session keyword is not the string `none'
+         (session (unless (string= value "none")
+                   (org-babel-template-initiate-session (cdr (assq :session processed-params)))))
          ;; variables assigned for use in the block
          (vars (org-babel--get-vars processed-params))
          (result-params (assq :result-params processed-params))

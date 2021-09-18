@@ -58,7 +58,10 @@ and the enhanced minor mode version
 
 *** list-factory.el
     Mathematica style 'list comprehensions`. Usage examples are in the
-    =erf-deftest= at the end of the file.
+    =erf-deftest= at the end of the file. I have found out that the `dash`
+    package already has the `-table` function which is probably a better
+    alternative (butm like Mathematica it only supports iteration over lists,
+    not over strings)
     
 *** json-to-yasnippet.el
     Very basic vscode json snippet file to yasnippet translator. For usage see

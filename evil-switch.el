@@ -7,8 +7,8 @@
                      (cons (region-beginning) (region-end))
                    (bounds-of-thing-at-point 'symbol)))
          (text   (buffer-substring-no-properties (car bounds) (cdr bounds)))
-         (pair   (cond ((assoc (thing-at-point 'symbol) pair-alist))
-                       ((rassoc (thing-at-point 'symbol) pair-alist)))))
+         (pair   (cond ((assoc text pair-alist))
+                       ((rassoc text pair-alist)))))
     (when bounds
       (delete-region (car bounds) (cdr bounds))
       (if (equal text (car pair))

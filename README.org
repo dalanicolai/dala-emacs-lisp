@@ -68,7 +68,8 @@ and the enhanced minor mode version
     initial comment within file.
     
 *** evil-switch.el
-    A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]].
+    A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]] (I quickly wrote it because
+    I was not aware of the more powerful and generally nicer [[https://github.com/dp12/parrot][parrot package]]).
 
 ** Addtional projects
 *** djvu3 [[https://github.com/dalanicolai/djvu3]]

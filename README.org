@@ -58,9 +58,9 @@ and the enhanced minor mode version
 
 *** list-factory.el
     Mathematica style 'list comprehensions`. Usage examples are in the
-    =erf-deftest= at the end of the file. I have found out that the `dash`
-    package already has the `-table` function which is probably a better
-    alternative (butm like Mathematica it only supports iteration over lists,
+    =erf-deftest= at the end of the file. Although I have found out now that the
+    `dash` package already has the `-table` function which is probably a better
+    alternative (but like Mathematica it only supports iteration over lists,
     not over strings)
     
 *** json-to-yasnippet.el
@@ -71,6 +71,9 @@ and the enhanced minor mode version
     A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]] (I quickly wrote it because
     I was not aware of the more powerful and generally nicer [[https://github.com/dp12/parrot][parrot package]]).
 
+*** alist-tree-widget.el
+    Create tree-widgets from alists
+    
 ** Addtional projects
 *** djvu3 [[https://github.com/dalanicolai/djvu3]]
     A newer version of =djvu2= using Emacs its native =svg= rendering

@@ -1,3 +1,36 @@
+;; for getting a value `let-alist' provides a more convenient alternative
+(defun al-get (alist &rest keys)
+  (dolist (k keys alist)
+    (setq alist (alist-get k alist))))
+
+(al-get '((a (b c d))) 'a 'b)
+
+;; for setting a value, I am not aware of good alternatives
+(defun al-set (alist val &rest keys)
+  (let* ((current-key (pop keys))
+         (sublist (cl-pushnew (list current-key) alist :key #'car)))
+    (dolist (k keys)
+      (setq sublist (cl-pushnew (list k) (alist-get current-key sublist) :key #'car))
+      (setq current-key k))
+    (when val
+      (setf (alist-get current-key sublist) val))
+    alist))
+
+(let ((tl '((a (b (c) (d))))))
+  (al-set tl "hoi" 'a 'b 'c))
+
+;; we can use a simple macro to implement the destructive version
+(defmacro al-set! (alist val &rest keys)
+  `(setq ,alist (al-set ,alist ,val ,@keys)))
+
+(setq tl nil)
+(al-set! tl 'test 'a 'b 'c)
+
+(let ((sub (al-get tl 'a 'b)))
+  (setf (alist-get 'c sub) 'tost))
+
+;;;; Below are previously found solutions (all less clean than the code above)
+
 ;; This seems to be the cleanest implementation, found at (slightly adapted)
 ;; https://forums.autodesk.com/t5/visual-lisp-autolisp-and-general/recursive-assoc-and-subst/m-p/7852434/highlight/true#M366429
 ;; however, this does not insert the new cons if it does not yet exist (but it

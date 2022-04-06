@@ -5,7 +5,9 @@
 Mode and functions for consulting vim's help from within Emacs. Use =M-x vim-help=
 to select and jump to some subject. Within the help files, when the cursor is on
 a tag, use =M-x vim-help-find-tag= (or simply press ~C-]~ or ~M-.~) to jump to the
-subject.
+subject. Or, even better, install the [[https://github.com/noctuid/link-hint.el][link-hint]] library to jump to tags by
+pressing ~o~. The package is very minimal, but it does its job quite well already
+by covering 95% of the use cases (e.g. a few links don't work).
    
 *** pdf-avy-highlight.el
 This is a function that uses avy to highlight by keyboard with pdf-tools. After

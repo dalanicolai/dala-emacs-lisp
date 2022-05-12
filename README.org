@@ -1,6 +1,14 @@
 * dala-emacs-lisp
 ** Handy or fun functions for Emacs
 
+*** better-orgfold-separate-file.el
+(Re)store folding state of org files. Improved/cleaned up version of
+https://www.emacswiki.org/emacs/orgfold-separate-file.el
+
+The single improvement is that this version prevents that the created '.fold'
+files get added to the `recentf-list'. Furthermore some redundant code has
+been removed. Thanks to Cassiel-girl.
+
 *** vim-help.el
 Mode and functions for consulting vim's help from within Emacs. Use =M-x vim-help=
 to select and jump to some subject. Within the help files, when the cursor is on

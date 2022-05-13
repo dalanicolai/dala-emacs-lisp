@@ -9,6 +9,16 @@ The single improvement is that this version prevents that the created '.fold'
 files get added to the `recentf-list'. Furthermore some redundant code has
 been removed. Thanks to Cassiel-girl.
 
+*** ray-tracer.org/el
+A simple but very nice ray-tracer in elisp.
+This org file contains a translation from the ulisp article at
+http://www.ulisp.com/show?2NWA to elisp Additionally this file uses ppm-gen.el
+from https://www.emacswiki.org/emacs/PpmGen for plotting
+
+*** json-to-yasnippet.el
+    Very basic vscode json snippet file to yasnippet translator. For usage see
+    initial comment within file.
+
 *** vim-help.el
 Mode and functions for consulting vim's help from within Emacs. Use =M-x vim-help=
 to select and jump to some subject. Within the help files, when the cursor is on
@@ -29,7 +39,7 @@ second is created using pdf-avy-highlight (both slowly, so you can follow what
 happens)
 [[avy-highlight-demo.gif]]
 
-*** ob-template.el
+*** ob-template.el (has been contributed to orgmode.org)
     Ah somewhat updated version of [[https://code.orgmode.org/bzg/worg/raw/master/org-contrib/babel/ob-template.el][ob-template.el]] as found in section *Develop
     support for new languages* at the [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][org babel website]].
 
@@ -77,10 +87,6 @@ and the enhanced minor mode version
     `dash` package already has the `-table` function which is probably a better
     alternative (but like Mathematica it only supports iteration over lists,
     not over strings)
-    
-*** json-to-yasnippet.el
-    Very basic vscode json snippet file to yasnippet translator. For usage see
-    initial comment within file.
     
 *** evil-switch.el
     A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]] (I quickly wrote it because

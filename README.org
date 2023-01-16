@@ -26,7 +26,7 @@ a tag, use =M-x vim-help-find-tag= (or simply press ~C-]~ or ~M-.~) to jump to t
 subject. Or, even better, install the [[https://github.com/noctuid/link-hint.el][link-hint]] library to jump to tags by
 pressing ~o~. The package is very minimal, but it does its job quite well already
 by covering 95% of the use cases (e.g. a few links don't work).
-   
+
 *** pdf-avy-highlight.el
 This is a function that uses avy to highlight by keyboard with pdf-tools. After
 calling the function you type the initial pattern to set where to highlight
@@ -40,16 +40,16 @@ happens)
 [[avy-highlight-demo.gif]]
 
 *** ob-template.el (has been contributed to orgmode.org)
-    Ah somewhat updated version of [[https://code.orgmode.org/bzg/worg/raw/master/org-contrib/babel/ob-template.el][ob-template.el]] as found in section *Develop
-    support for new languages* at the [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][org babel website]].
+Ah somewhat updated version of [[https://code.orgmode.org/bzg/worg/raw/master/org-contrib/babel/ob-template.el][ob-template.el]] as found in section *Develop
+support for new languages* at the [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][org babel website]].
 
-    Some few small tips:
-    - start with instrumenting [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Using-Edebug.html][see edebug]] the =org-babel-execute:template=
-      function, and subsequently evaluate some test-code block. In this way you
-      can easily figure out how org-babel processes header arguments. Then in
-      the end, the result printed by a code block simply consists of the output
-      of that function.
-    - The trick is to process the vars/result-params and the =full=body=
+Some few small tips:
+ - start with instrumenting [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Using-Edebug.html][see edebug]] the =org-babel-execute:template=
+   function, and subsequently evaluate some test-code block. In this way you
+   can easily figure out how org-babel processes header arguments. Then in
+   the end, the result printed by a code block simply consists of the output
+   of that function.
+ - The trick is to process the vars/result-params and the =full=body=
       variable (~let~ form within =org-babel-execute:template= function) and
       send the appropriate lines to some inferior process (or as an argument to
       some shell command). The inferior process can be created in the function
@@ -57,44 +57,49 @@ happens)
       process (or by the shell command), should be returned by
       =org-babel-execute:template= (of course you might further process it
       before you return it).
-    - Don't forget to read the comments in the ob-template file, e.g. for
+ - Don't forget to read the comments in the ob-template file, e.g. for
       sending/receiving output to/from an inferior process, the functions in
       =org-babel-comint= might be useful, etc...
 
 *** google-keyboard-translate-pdf-textregion.el
-    Translate text-regions in pdf by keyboard (similar to ~pdf-avy-highlight.el~
-    decribed above). Requires https://github.com/atykhonov/google-translate
-    
+Translate text-regions in pdf by keyboard (similar to ~pdf-avy-highlight.el~
+decribed above). Requires https://github.com/atykhonov/google-translate
+
 *** pdf-continuous-scroll.el
 See [[https://github.com/politza/pdf-tools/issues/27#issuecomment-696237353][here]]
-and the enhanced minor mode version 
+and the enhanced minor mode version
 [[https://github.com/dalanicolai/pdf-continuous-scroll-mode.el][here]]
 
 *** doc-view-continuous-scroll-djvu.el
-   *DOES NOT WORK WELL*. pdf-continuous-scroll.el ported to doc-view-mode.
-   However, it worked well until (experimental) functions were added to make it
-   sync with djvu.el buffers. So although it could easily made to work with all
-   doc-view buffers by removing the djvu specific functions, it currently only
-   works with djvu documents.
-   
+*DOES NOT WORK WELL*. pdf-continuous-scroll.el ported to doc-view-mode.
+However, it worked well until (experimental) functions were added to make it
+sync with djvu.el buffers. So although it could easily made to work with all
+doc-view buffers by removing the djvu specific functions, it currently only
+works with djvu documents.
+
 *** doc-view-continuous-scroll.el
-    Very quick attempt to revert =doc-view-continuous-scroll-djvu.el= to a
-    working state for doc-view.
+Very quick attempt to revert =doc-view-continuous-scroll-djvu.el= to a
+working state for doc-view.
 
 *** list-factory.el
-    Mathematica style 'list comprehensions`. Usage examples are in the
-    =erf-deftest= at the end of the file. Although I have found out now that the
-    `dash` package already has the `-table` function which is probably a better
-    alternative (but like Mathematica it only supports iteration over lists,
-    not over strings)
-    
+Mathematica style 'list comprehensions`. Usage examples are in the
+=erf-deftest= at the end of the file. Although I have found out now that the
+`dash` package already has the `-table` function which is probably a better
+alternative (but like Mathematica it only supports iteration over lists,
+not over strings)
+
 *** evil-switch.el
-    A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]] (I quickly wrote it because
-    I was not aware of the more powerful and generally nicer [[https://github.com/dp12/parrot][parrot package]]).
+A simplified equivalent of the [[https://github.com/AndrewRadev/switch.vim][vim-switch plugin]] (I quickly wrote it because
+I was not aware of the more powerful and generally nicer [[https://github.com/dp12/parrot][parrot package]]).
 
 *** alist-tree-widget.el
-    Create tree-widgets from alists
-    
+Create tree-widgets from alists
+
+*** box-pointer.el
+Some quickly written code for drawing /dotted-pair representation/ of the
+smallest, and simplest lists. For larger/more complex lists there is [[https://github.com/zainab-ali/pair-tree.el][pair-tree]].
+For small lists, the representation from this code looks better.
+
 ** Addtional projects
 *** djvu3 [[https://github.com/dalanicolai/djvu3]]
     A newer version of =djvu2= using Emacs its native =svg= rendering

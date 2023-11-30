@@ -1,6 +1,10 @@
 * dala-emacs-lisp
 ** Handy or fun functions for Emacs
 
+*** org-fold-restore.el
+(Re)store folding state of org files for org version >= 9.6.
+
+
 *** better-orgfold-separate-file.el
 (Re)store folding state of org files. Improved/cleaned up version of
 https://www.emacswiki.org/emacs/orgfold-separate-file.el

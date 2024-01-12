@@ -1,7 +1,14 @@
-# This org file contains a translation from the ulisp article at http://www.ulisp.com/show?2NWA to elsip
-# Additionally this file uses ppm-gen.el from https://www.emacswiki.org/emacs/PpmGen for plotting
+#+TITLE: How ray tracing works
+#+PROPERTY: header-args :results silent
 
-* How ray tracing works
+*This org file contains a translation from the ulisp article at http://www.ulisp.com/show?2NWA to elisp*
+
+*Additionally this file uses ppm-gen-simple.el from https://github.com/dalanicolai/dala-emacs-lisp for drawing*
+
+*After using =org-babel-execute-buffer= on this org file, a link to the resulting image is inserted in this buffer, below the =(tracer)= call*
+
+*For fun, you could tangle this buffer, byte/native compile the resulting lisp file and run =(tracer)= again to experience the increase in speed*
+
 
 Ray tracing creates a two-dimensional image of a simulated world consisting of
 one or more three-dimensional objects. It works by considering an image plane,
@@ -37,23 +44,23 @@ objects will cast shadows.
 * Utilities
 
 #+begin_src emacs-lisp :tangle yes
-  ;; This org file contains a translation from the ulisp article at http://www.ulisp.com/show?2NWA to elsip
-  ;; Additionally this file uses ppm-gen.el from https://www.emacswiki.org/emacs/PpmGen for plotting
+;; This el file contains a translation from the ulisp article at http://www.ulisp.com/show?2NWA to elsip
+;; Additionally this file uses ppm-gen.el from https://www.emacswiki.org/emacs/PpmGen for plotting
 
-  (require 'ppm-gen)
-  (require 'cl-lib)
-#+end_src  
+;; (require 'ppm-gen)
+(require 'cl-lib)
+#+end_src
 
 To keep the program as concise as possible points, vectors, and colours are each
 represented by a list of three elements. The following routines can be used to
 construct an appropriate vector from its components:
 
 #+begin_src emacs-lisp :tangle yes
-  (defun colour (r g b) (list r g b))
-  (defun pnt (x y z) (list x y z))
-  (defun vect (x y z) (list x y z))
+(defun colour (r g b) (list r g b))
+(defun pnt (x y z) (list x y z))
+(defun vect (x y z) (list x y z))
 #+end_src
-  
+
 Having three separate routines makes the programs more readable by making it
 clear what type of value we're creating.
 
@@ -61,39 +68,39 @@ Representing vectors in this way allows us to implement vector addition, add,
 and subtraction, subtract, using mapping functions:
 
 #+begin_src emacs-lisp :tangle yes
-  (defun add (v w) (cl-mapcar #'+ v w))
-  (defun subtract (v w) (cl-mapcar #'- v w))
+(defun add (v w) (cl-mapcar #'+ v w))
+(defun subtract (v w) (cl-mapcar #'- v w))
 #+end_src
-  
+
 Likewise, the dot or scalar product of two vectors, dot, is defined as:
 
 #+begin_src emacs-lisp :tangle yes
-  (defun mul (c v) (mapcar (lambda (x) (* c x)) v))
-  (defun dot (v w) (apply #'+ (cl-mapcar #'* v w)))
+(defun mul (c v) (mapcar (lambda (x) (* c x)) v))
+(defun dot (v w) (apply #'+ (cl-mapcar #'* v w)))
 #+end_src
-  
+
 and the magnitude of a vector is given by mag, where:
 
 #+begin_src emacs-lisp :tangle yes
-  (defun square (x) (* x x))
-  (defun magnitude (v) (sqrt (apply #'+ (mapcar #'square v))))
+(defun square (x) (* x x))
+(defun magnitude (v) (sqrt (apply #'+ (mapcar #'square v))))
 #+end_src
 
 The unit vector is:
 
 #+begin_src emacs-lisp :tangle yes
-  (defun unit-vector (v)
-    (let ((d (magnitude v)))
-      (mapcar (lambda (j) (/ j d)) v)))
+(defun unit-vector (v)
+  (let ((d (magnitude v)))
+    (mapcar (lambda (j) (/ j d)) v)))
     #+end_src
-      
+
 and the distance between two points is:
 
 #+begin_src emacs-lisp :tangle yes
   (defun distance (p1 p2)
     (magnitude (cl-mapcar #'- p1 p2)))
   #+end_src
-    
+
 Using mapping functions avoids the need to extract the x, y, and z components of
 each point or vector, or the r, g, and b components of colours.
 
@@ -110,7 +117,7 @@ The world, eye, and light are stored in global variables:
   (defvar *eye* nil)
   (defvar *light* nil)
 #+end_src
-  
+
 *world* stores a list of the objects in the world. *eye* and *light* give the
 coordinates of the eye position and point light source.
 
@@ -138,11 +145,11 @@ The following functions provide convenient ways of accessing the sphere
 parameters:
 
 #+begin_src emacs-lisp :tangle yes
-  (defun sphere-center (s) (second s))
-  (defun sphere-radius (s) (third s))
-  (defun sphere-colour (s) (fourth s))
+  (defun sphere-center (s) (cl-second s))
+  (defun sphere-radius (s) (cl-third s))
+  (defun sphere-colour (s) (cl-fourth s))
 #+end_src
-  
+
 Plane
 
 A plane consists of:
@@ -158,9 +165,9 @@ example, this is a white plane:
 Here are the functions to access the plane parameters:
 
 #+begin_src emacs-lisp :tangle yes
-  (defun plane-point (s)  (second s))
-  (defun plane-normal (s) (third s))
-  (defun plane-colour (s) (fourth s))
+  (defun plane-point (s)  (cl-second s))
+  (defun plane-normal (s) (cl-third s))
+  (defun plane-colour (s) (cl-fourth s))
 #+end_src
 
 Adding an object to the world
@@ -171,7 +178,7 @@ The function make adds an object definition to the world:
   (defun make (&rest list)
     (push list *world*))
 #+end_src
-    
+
 Here are the function calls to define the world:
 
 #+begin_src emacs-lisp :tangle yes
@@ -179,15 +186,16 @@ Here are the function calls to define the world:
 
   (setq *world* nil)
   (setq *eye* (mul magnification (pnt 0.0 0.0 200.0)))
-  (setq *light* (mul magnification (pnt -5000 10000 -1200)))
+  (setq *light* (mul magnification (pnt -5000 10000 -10000)))
   (make 'plane (mul magnification (pnt 0 -200 0)) (vect 0 -1 0) (colour 2 2 2))
   (make 'sphere (mul magnification (pnt -250 0 -1000)) (* magnification 200) (colour 0 1 .5))
   (make 'sphere (mul magnification (pnt 50 0 -1200)) (* magnification 200) (colour 1 .5 0))
   (make 'sphere (mul magnification (pnt 400 0 -1400)) (* magnification 200) (colour 0 .5 1))
   (make 'sphere (mul magnification (pnt -50 -150 -600)) (* magnification 50) (colour 0 0 1))
   (make 'sphere (mul magnification (pnt 200 -150 -800)) (* magnification 50) (colour 1 0 0))
+  (make 'sphere (mul magnification (pnt -50 220 -600)) (* magnification 50) (colour 1 1 0))
 #+end_src
-  
+
 The eye is on the z axis, 200 units from the origin. The objects in the world
 are all on the other side of the image plane, so they have negative z
 coordinates. The light is vertically above the objects, and on their left.
@@ -205,7 +213,7 @@ The object-colour method gets the colour of the object:
       (sphere (sphere-colour s))
       (plane (plane-colour s))))
 #+end_src
-      
+
 The object-normal method gives the normal to the object s at the point pt:
 
 #+begin_src emacs-lisp :tangle yes
@@ -213,7 +221,7 @@ The object-normal method gives the normal to the object s at the point pt:
     (cl-case (car s)
       (sphere (sphere-normal s pt))
       (plane (plane-normal s))))
- 
+
 (defun sphere-normal (s pt)
   (unit-vector (subtract (sphere-center s) pt)))
       #+end_src
@@ -241,7 +249,7 @@ pr hits, or it returns nil if it misses:
         (let ((n (/ (dot (subtract (plane-point s) pt) (plane-normal s)) denom)))
           (when (>= n 0) n)))))
 #+end_src
-          
+
 Finding the hit point on a sphere involves solving the equation resulting from
 the intersection of the ray and the sphere. This gives a quadratic equation of
 the form:
@@ -259,43 +267,41 @@ routine calls minroot to calculate this:
     (if (zerop a)
         (/ (- c) b)
       (let ((disc (- (square b) (* 4 a c))))
-        (unless (minusp disc)
+        (unless (cl-minusp disc)
           (min (/ (+ (- b) (sqrt disc)) (* 2 a))
                (/ (- (- b) (sqrt disc)) (* 2 a)))))))
 #+end_src
-               
+
 Generating the ray-traced image
 
 The ray-traced image has a resolution of 160 x 128 pixels. To generate this we
 call tracer:
 
 #+begin_src emacs-lisp :tangle yes
-(setq *xres* (* magnification 160))
-(setq *yres* (* magnification 128))
-(setq img (ppm-make *xres* *yres*))
+  (setq *xres* (* magnification 320))
+  (setq *yres* (* magnification 256))
+  (setq img (ppm-create *xres* *yres*))
 
-(defun tracer ()
-  (dotimes (x *xres*)
-    (dotimes (y *yres*)
-      ;; (print (apply #'color-rgb-to-hex (colour-at (- x 80) (- 64 y)))))))
-      (ppm-plot img x y (apply #'ppm-rgb (mul 255 (colour-at (- x 80) (- 64 y)))))))
-  (ppm-show img))
-        
-            ;; (ppm-plot ppm x y (apply rgb (colour-at (- x 80) (- 64 y)))))))
+  (defun tracer ()
+    (dotimes (x *xres*)
+      (dotimes (y *yres*)
+        ;; (print (apply #'color-rgb-to-hex (colour-at (- x 80) (- 64 y)))))))
+        (ppm-plot img x y (colour-at (- x 80) (- 64 y)))))
+      (ppm-display img))
 #+end_src
-        
+
 This calls plotpoint to plot the pixel on the display device. For each pixel it
 calls colour-at to get the colour of the pixel:
 
 #+begin_src emacs-lisp :tangle yes
   (defun colour-at (x y)
-    (let ((c (send-ray 
+    (let ((c (send-ray
               ,*eye*
               (unit-vector
                (subtract (list x y 0) *eye*)))))
       (or c (background x y))))
       #+end_src
-      
+
 This calls send-ray to send a ray from the eye in the direction defined by the
 unit vector from the eye to the pixel. It returns the colour returned by
 send-ray, or the background colour if send-ray doesn't hit anything and returns
@@ -309,7 +315,7 @@ generated by this function:
 #+begin_src emacs-lisp :tangle yes
   (defun background (x y) (colour 0.5 0.7 1))
   #+end_src
-  
+
 Sending a ray
 
 The function send-ray sends a ray and returns the colour where the ray hits the
@@ -319,11 +325,11 @@ send-ray that ignores the light:
 #+begin_src emacs-lisp :tangle no
   (defun send-ray (pt pr)
     (let* ((f (first-hit pt pr))
-           (s (first f))
-           (hit (second f)))
+           (s (cl-first f))
+           (hit (cl-second f)))
       (when s (mul (lambert s hit pr) (object-colour s)))))
       #+end_src
-      
+
 It then returns the object's colour multiplied by the Lambert factor. Lambert's
 law says that the intensity of light reflected by a point on a surface is
 proportional to the dot product of the unit normal vector at that point and the
@@ -333,7 +339,7 @@ unit vector from the point to the light source:
   (defun lambert (s hit pr)
     (max 0 (dot pr (object-normal s hit))))
     #+end_src
-    
+
 If the light is shining perpendicular to the surface the dot product will be 1,
 the maximum value, and the surface will be bright. If the light is hitting the
 surface at an angle of 90° the dot product will be zero, and the surface will be
@@ -357,7 +363,7 @@ two items: the closest object hit, and the coordinates of the hit point:
                 (setq dist d))))))
       (list surface hit)))
 #+end_src
-      
+
 Casting shadows
 
 To give shadows in the scene we can extend send-ray to take account of the point
@@ -366,22 +372,23 @@ light source:
 #+begin_src emacs-lisp :tangle yes
   (defun send-ray (pt pr)
     (let* ((f (first-hit pt pr))
-           (s (first f))
-           (hit (second f)))
+           (s (cl-first f))
+           (hit (cl-second f)))
       (when s
         (let* ((c (mul (lambert s hit pr) (object-colour s)))
                (f2 (first-hit *light* (unit-vector (subtract hit *light*))))
-               (h2 (second f2)))
+               (h2 (cl-second f2)))
           (cond
            ((< (distance hit h2) 1) c)
            (t (mul .75 c)))))))
-
-  ;; (print (benchmark-run (tracer)))
 #+end_src
 
-The result looks as follows:
-           
-[[./balls.ppm]]
+#+begin_src emacs-lisp :tangle no :results value replace file :file test.ppm
+  (tracer)
+#+end_src
+
+#+RESULTS:
+[[file:test.ppm]]
 
 When the ray hits the surface of an object we trace the path of a second ray
 from the light to the hit point. If it hits a point close to the original hit

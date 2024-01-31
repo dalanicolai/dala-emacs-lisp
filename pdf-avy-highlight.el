@@ -1,6 +1,8 @@
 (eval-when-compile
   (require 'pdf-view))
 
+(require 'pdf-annot)
+
 (defcustom pdf-links-convert-pointsize-scale 0.02
   "The scale factor for the -pointsize convert command.
 
@@ -89,7 +91,7 @@ See `pdf-links-action-perform' for the interface."
         (setq str (concat str (list char))))))
     (print str)))
 
-(defun get-coordinates (end)
+(defun get-coordinates (&optional end)
   (let* ((query (avy-timed-input))
          (coords (list (or (pdf-links-read-char-action query "Please specify (SPC scrolls): ")
                            (error "No char selected")))))
@@ -99,7 +101,7 @@ See `pdf-links-action-perform' for the interface."
 
 (defun pdf-keyboard-highlight ()
   (interactive)
-  (let* ((start (get-coordinates nil))
+  (let* ((start (get-coordinates))
          (end (get-coordinates t))
          (edges (append (cl-subseq start 0 2) (cl-subseq end 2 4))))
     (pdf-annot-add-markup-annotation
